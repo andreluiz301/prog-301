@@ -7,6 +7,8 @@ diretorio = input('Digite o nome do diretório que deseja acessar: ')
 obs = input('Digite a observação que deseja colocar no commit: ')
 nav = input('Digite o primeiro nome do seu navegador: ')
 
+a = 15
+
 time.sleep(1)
 py.hotkey('ctrl', 'alt', 't')
 time.sleep(5)
@@ -27,5 +29,10 @@ time.sleep(0.5)
 py.press('enter')
 time.sleep(6)
 py.write(f'start {nav} https://github.com/')
+time.sleep(0.5)
+py.press('enter')
+time.sleep(10)
+for a in range(a):
+    py.press('tab')
 time.sleep(0.5)
 py.press('enter')
