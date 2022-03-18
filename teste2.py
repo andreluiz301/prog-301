@@ -1,15 +1,6 @@
 import sqlite3
 
 
-class Pessoa(object):
-
-    def __init__(self, nome:str, idade:int, email:str) -> None:
-
-        self.nome = nome
-        self.idade = idade
-        self.email = email
-
-
 class BancoDao(object):
 
     def __init__(self) -> None:
