@@ -1,0 +1,26 @@
+from ast import Return
+import pyautogui as py
+import time, os
+
+dir = input('Digite o nome do diretório que deseja acessar: ')
+obs = input('Digite a observação que deseja colocar no commit: ')
+time.sleep(1)
+py.hotkey('ctrl', 'alt', 't')
+time.sleep(5)
+py.write(f'cd {dir}')
+time.sleep(0.5)
+py.press('enter')
+time.sleep(0.5)
+py.write('git add *')
+time.sleep(0.5)
+py.press('enter')
+time.sleep(1)
+py.write(f'git commit -m {time.strftime(f""" "{obs} (%d/%m/%Y %H:%M:%S)" """, time.localtime())}')
+time.sleep(0.5)
+py.press('enter')
+time.sleep(5)
+py.write('git push')
+time.sleep(0.5)
+py.press('enter')
+time.sleep(5)
+py.hotkey('alt', 'f4')
