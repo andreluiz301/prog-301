@@ -31,7 +31,7 @@ time.sleep(6)
 py.write(f'start {nav} https://github.com/')
 time.sleep(0.5)
 py.press('enter')
-time.sleep(10)
+time.sleep(20)
 for a in range(a):
     py.press('tab')
 time.sleep(0.5)
