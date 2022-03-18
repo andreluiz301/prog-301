@@ -2,12 +2,13 @@ from ast import Return
 import pyautogui as py
 import time, os
 
-dir = input('Digite o nome do diretório que deseja acessar: ')
+diretorio = input('Digite o nome do diretório que deseja acessar: ')
 obs = input('Digite a observação que deseja colocar no commit: ')
+nav = input('Digite o primeiro nome do seu navegador: ')
 time.sleep(1)
 py.hotkey('ctrl', 'alt', 't')
 time.sleep(5)
-py.write(f'cd {dir}')
+py.write(f'cd {diretorio}')
 time.sleep(0.5)
 py.press('enter')
 time.sleep(0.5)
@@ -23,4 +24,6 @@ py.write('git push')
 time.sleep(0.5)
 py.press('enter')
 time.sleep(5)
-py.hotkey('alt', 'f4')
+py.write(f'start {nav} https://github.com/')
+time.sleep(0.5)
+py.press('enter')
