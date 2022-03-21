@@ -3,7 +3,7 @@ import pyautogui as py
 import time, os
 
 
-pasta = input('Digite o nome do diretório que deseja acessar: ')
+diretorio = input('Digite o nome do diretório que deseja acessar: ')
 obs = input('Digite a observação que deseja colocar no commit: ')
 nav = input('Digite o nome do seu navegador: ')
 
@@ -12,7 +12,7 @@ a = 15
 time.sleep(1)               
 py.hotkey('ctrl', 'alt', 't')
 time.sleep(5)
-py.write(f'cd {pasta}')
+py.write(f'cd {diretorio}')
 time.sleep(0.5)
 py.press('enter')
 time.sleep(0.5)
