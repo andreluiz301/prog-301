@@ -8,6 +8,10 @@ class Quarto(object):
         self.nome = nome
         self.dimensoes = dimensoes
 
+    def __repr__(self) -> str:
+        s = self.nome + "," + self.dimensoes
+        return s
+
 
 class Mobilia(object):
 
@@ -21,7 +25,7 @@ class Mobilia(object):
     def __repr__(self) -> str:
         s = self.nome + "," + self.funcao + "," + self.material
         if self.quarto:
-            s += str(self.quarto)
+            s += "," + str(self.quarto)
         return s
 
 
@@ -40,7 +44,9 @@ class Casa(object):
 
 
 if __name__ == "__main__":
-    q1 = Quarto(nome="sala", dimensoes='5x6m')
+    q1 = Quarto(nome="sala", dimensoes="5x6m")
     m1 = Mobilia(nome="armario", funcao="coisas da sala", material="madeira", quarto=q1)
     c1 = Casa(formato="Germânica", quartos=[q1])
-    print(q1, m1, c1)
+    print(q1)
+    print(m1)
+    print(c1)

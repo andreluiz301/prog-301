@@ -3,6 +3,14 @@ import pyautogui as py
 import time, os
 
 
+print('\nOlá! O programa está começando!')
+time.sleep(0.5)
+print('...')
+time.sleep(0.5)
+print('...')
+time.sleep(0.5)
+print('...')
+
 pasta = input('Digite o nome do diretório que deseja acessar: ')
 obs = input('Digite a observação que deseja colocar no commit: ')
 nav = input('Digite o nome do seu navegador: ')
