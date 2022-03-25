@@ -10,6 +10,7 @@ class Aplicativo(object):
         arq = input('Digite o arquivo ou pasta que deseja enviar: ')
         msg = input('Digite a mensagem que deseja colocar no commit: ')
         nav = input('Digite o nome do seu navegador: ')
+        print('')
 
         py.hotkey('ctrl', 'alt', 't')
         time.sleep(5)
@@ -36,6 +37,7 @@ class Aplicativo(object):
     def pull(self):
 
         rep = input('\nDigite o nome do repositório que deseja acessar: ')
+        print('')
 
         py.hotkey('ctrl', 'alt', 't')
         time.sleep(5)
@@ -46,6 +48,8 @@ class Aplicativo(object):
         py.write('git pull')
         time.sleep(1)
         py.press('enter')
+        time.sleep(3)
+        py.hotkey('alt', 'tab')
 
     
     def exibir_menu(self):
@@ -78,7 +82,7 @@ class Aplicativo(object):
             except(ValueError):
                 print("Insira uma opção válida!")
 
+
 if __name__ == "__main__":
     app = Aplicativo()
     app.menu()
-    
