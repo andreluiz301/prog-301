@@ -44,9 +44,5 @@ class Casa(object):
 
 
 if __name__ == "__main__":
-    q1 = Quarto(nome="sala", dimensoes="5x6m")
-    m1 = Mobilia(nome="armario", funcao="coisas da sala", material="madeira", quarto=q1)
-    c1 = Casa(formato="Germânica", quartos=[q1])
-    print(q1)
-    print(m1)
+    c1 = Casa(formato='Romana')
     print(c1)
