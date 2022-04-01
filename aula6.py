@@ -6,7 +6,9 @@ class Casa (db.Model):
     formato = db.Column(db.String(254))
     
     def __str__(self):
-        return f'Casa: {self.id}, {self.formato}'
+        c = f'Casa | Id: {self.id}, Formato: {self.formato}'
+        print()
+        return c
     
         
 class Quarto(db.Model):
@@ -18,9 +20,12 @@ class Quarto(db.Model):
                           nullable=False)
     casa = db.relationship("Casa")
 
+    #mobilias = db.relationship("Mobilia", backref="quarto")
+
     def __str__(self):
-        s = f'Quarto: {self.nome}, {self.dimensoes}, em: {str(self.casa)}'
-        s += f'na casa: {str(self.casa)}'          
+        s = f'Quarto | Nome: {self.nome}, Dim.: {self.dimensoes}'
+        s += f'\nNa casa: {str(self.casa)}'
+        print()
         return s
 
 class Mobilia(db.Model):
@@ -30,12 +35,13 @@ class Mobilia(db.Model):
     material = db.Column(db.String(254))
     
     quarto_id = db.Column(db.Integer, db.ForeignKey(Quarto.id),
-                            nullable=False)
+                            nullable=True)
     quarto = db.relationship("Quarto")
 
     def __str__(self) -> str:
-        a = f'Mobilia: {self.nome}, {self.dimensoes}, em: {str(self.quarto)}'
-        a += f'na casa: {str(self.casa)}'
+        a = f'Mobilia | Nome: {self.nome}, Função: {self.funcao}, Material: {self.material}. '
+        a += f'\nNo quarto: {str(self.quarto)}'
+        return a
 
 
 if __name__ == "__main__": # teste das classes
@@ -64,8 +70,16 @@ if __name__ == "__main__": # teste das classes
 
     print(q1, q2)
 
+    m1 = Mobilia(nome="Armário", funcao="Guardar", material="Madeira", quarto=q1)
+
+    db.session.add(m1)
+    db.session.commit()
+
+    print(m1)
+
+    print('')
     print("*** TESTE com todos os dados")
     print(c1) # casa
     # quartos da casa, sem lista reversa
-    for q in db.session.query(Quarto).filter(Quarto.casa_id == c1.id).all():
+    for q in db.session.query(Mobilia).filter().all():
         print(q)

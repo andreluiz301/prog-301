@@ -1,9 +1,9 @@
-while True:
-    e = input('Está erecido? y/n -> ')
+a = input('Você gostaria de calcular? s/n -> ')
 
-    if e == 'y':
-        print('SECHO')
-    elif e == 'n':
-        print('Broxa')
-    else:
-        print('Rei da Barriga Branca')
+if a == 's':
+    num = input('Digite a conta: ')
+    print(eval(num))
+elif a == 'n':
+    print('Boboca')
+else:
+    print('OTARO')
