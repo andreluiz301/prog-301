@@ -1,65 +1,49 @@
-from config import *
+from abacate import *
 
-class Casa (db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    formato = db.Column(db.String(254))
-    
-    # lista reversa!
-    quartos = db.relationship("Quarto", backref="casa")
+class Pessoa(db.Model):
 
-    def __str__(self):
-        return f'Casa: {self.formato}'        
-        
-class Quarto(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(254))
-    dimensoes = db.Column(db.String(254))
+    email = db.Column(db.String(254))
+    telefone = db.Column(db.String(254))
 
-    casa_id = db.Column(db.Integer, db.ForeignKey(Casa.id), 
-                          nullable=False)
-    # não precisa do comando relationship, pois a lista reversa
-    # em Casa já cria o atributo "casa" em Quarto
-    #casa = db.relationship("Casa")
+    tipo = db.Column(db.String(50))
+    __mapper_args__ = {
+        'polymorphic_identity':'pessoa',
+        'polymorphic_on':'tipo'
+    }
 
     def __str__(self):
-        s = f'Quarto: {self.nome}, {self.dimensoes}, em: {str(self.casa)}'
-        s += f'na casa: {str(self.casa)}'          
-        return s
+        pass
 
-if __name__ == "__main__": # teste das classes
-    
-    if os.path.exists(arquivobd): # se houver o arquivo...
-        os.remove(arquivobd) # ...apagar!
+class Vendedor(Pessoa):
 
-    db.create_all() # criar tabelas
+    id = db.Column(db.Integer, db.ForeignKey(Pessoa.id), primary_key=True)
+    comissao = db.Column(db.Integer)
 
-    print("*** TESTE criando objetos")
+    __mapper_args__ = {
+        'polymorphic_identity':'vendedor'
+    }
 
-    c1 = Casa(formato="Germânica") # cria uma casa
+    def __str__(self):
+        pass
 
-    # persiste para criar o id
-    db.session.add(c1)
-    db.session.commit()
+class Motorista(Pessoa):
 
-    print(c1) # exibir atributos da casa
+    id = db.Column(db.Integer, db.ForeignKey(Pessoa.id), primary_key=True)
+    cnh = db.Column(db.String(254))
 
-    q1 = Quarto(nome="Sala", dimensoes="6x5 metros", casa=c1)
-    q2 = Quarto(nome="Banheiro", dimensoes="3x4 metros", casa=c1)
-    
-    db.session.add(q1)
-    db.session.add(q2)
-    db.session.commit()
+    __mapper_args__ = {
+        'polymorphic_identity':'motorista'
+    }
 
-    print(q1, q2)
+    def __str__(self):
+        pass
 
-    print("*** TESTE com todos os dados")
-    print(c1) # casa
-    # quartos da casa, sem lista reversa
-    for q in db.session.query(Quarto).filter(Quarto.casa_id == c1.id).all():
-        print(q)
+pedro = Vendedor(nome="Pedro", email="pe@gmail.com", comissao=10)
+db.session.add(pedro)
+db.session.commit()
 
-    print("*** TESTE com todos os dados, via lista reversa")
-    print(c1) # casa
-    # quartos da casa, com lista reversa
-    for q in c1.quartos:
-        print(q)
+teresa = Motorista(nome="Teresa", cnh="1234-5")
+db.session.add(teresa)
+db.session.commit()
