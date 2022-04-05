@@ -1,4 +1,4 @@
-from abacate import *
+from config import *
 
 class Pessoa(db.Model):
 
@@ -10,23 +10,23 @@ class Pessoa(db.Model):
     tipo = db.Column(db.String(50))
     __mapper_args__ = {
         'polymorphic_identity':'pessoa',
-        'polymorphic_on':'tipo'
+        'polymorphic_on':tipo
     }
 
     def __str__(self):
-        pass
+        return f'ID: {self.id} | Nome: {self.nome} | Tipo: {self.tipo} | Email: {self.email} | Fone: {self.telefone}'
 
 class Vendedor(Pessoa):
 
     id = db.Column(db.Integer, db.ForeignKey(Pessoa.id), primary_key=True)
-    comissao = db.Column(db.Integer)
+    comissao = db.Column(db.Float)
 
     __mapper_args__ = {
-        'polymorphic_identity':'vendedor'
+        'polymorphic_identity':'Vendedor'
     }
 
     def __str__(self):
-        pass
+        return f'{super().__str__()} | Comissão: {str(self.comissao)}'
 
 class Motorista(Pessoa):
 
@@ -34,16 +34,26 @@ class Motorista(Pessoa):
     cnh = db.Column(db.String(254))
 
     __mapper_args__ = {
-        'polymorphic_identity':'motorista'
+        'polymorphic_identity':'Motorista'
     }
 
     def __str__(self):
-        pass
+        return f'{super().__str__()} | CNH: {self.cnh}'
 
-pedro = Vendedor(nome="Pedro", email="pe@gmail.com", comissao=10)
+
+if os.path.exists(arquivobd): # se houver o arquivo...
+        os.remove(arquivobd) # ...apagar!
+
+db.create_all() # criar tabelas
+
+pedro = Vendedor(nome="Pedro", email="pe@gmail.com", telefone="(47)3394-4176", comissao=10)
 db.session.add(pedro)
 db.session.commit()
 
-teresa = Motorista(nome="Teresa", cnh="1234-5")
+print(pedro)
+
+teresa = Motorista(nome="Teresa", email="tete@gmail.com", telefone="(47)3396-0877", cnh="1234-5")
 db.session.add(teresa)
 db.session.commit()
+
+print(teresa)
