@@ -30,19 +30,33 @@ class Quarto(db.Model):
         print()
         return s
 
+
 class Mobilia(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(254))
     funcao = db.Column(db.String(254))
     material = db.Column(db.String(254))
     
-    quarto_id = db.Column(db.Integer, db.ForeignKey(Quarto.id),
-                            nullable=True)
-    #quarto = db.relationship("Quarto")
+    quarto_id = db.Column(db.Integer, db.ForeignKey(Quarto.id), nullable=True)
+
+    tvs = db.relationship("Tv", backref="mobilia")
 
     def __str__(self) -> str:
         a = f'Mobilia | Nome: {self.nome}, Função: {self.funcao}, Material: {self.material}. '
         a += f'\nNo quarto: {str(self.quarto)}'
+        return a
+
+
+class Tv(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    marca = db.Column(db.String(254))
+    modelo = db.Column(db.String(254))
+    tamanho = db.Column(db.Integer)
+
+    mobilia_id = db.Column(db.Integer, db.ForeignKey(Mobilia.id), nullable=True)
+
+    def __str__(self) -> str:
+        a = f'Tv | Marca: {self.marca}, Modelo: {self.modelo}, Tamanho: {self.tamanho}p.'
         return a
 
 
@@ -78,6 +92,9 @@ if __name__ == "__main__": # teste das classes
     db.session.commit()
 
     print(m1)
+
+    tv1 = Tv(marca="Samsung", modelo="k11", tamanho=43)
+    print(tv1)
 
     print('')
     print("TESTE COM TODOS OS DADOS")

@@ -16,7 +16,8 @@ class Pessoa(db.Model):
     def __str__(self):
         return f'ID: {self.id} | Nome: {self.nome} | Tipo: {self.tipo} | Email: {self.email} | Fone: {self.telefone}'
 
-class Vendedor(Pessoa):
+class Vendedor(Pessoa): 
+    
 
     id = db.Column(db.Integer, db.ForeignKey(Pessoa.id), primary_key=True)
     comissao = db.Column(db.Float)

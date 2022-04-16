@@ -1,56 +1,100 @@
-from ast import Return
 import pyautogui as py
 import time, os
 
 
-print('\nOlá! O programa está começando!')
-time.sleep(0.5)
-print('...')
-time.sleep(0.5)
-print('...')
-time.sleep(0.5)
-print('...')
+class Aplicativo(object):
 
-pasta = input('Digite o nome do diretório que deseja acessar: ')
-obs = input('Digite a observação que deseja colocar no commit: ')
-nav = input('Digite o nome do seu navegador: ')
+    def push(self):
 
-a = 15
-aa = 17
+        rep = input('\nDigite o nome do repositório que deseja acessar: ')
+        arq = input('Digite o arquivo ou pasta que deseja enviar: ')
+        msg = input('Digite a mensagem que deseja colocar no commit: ')
+        nav = input('Digite o nome do seu navegador: ')
+        print('')
+        a = 9
 
-time.sleep(1)               
-py.hotkey('ctrl', 'alt', 't')
-time.sleep(5)
-py.write(f'cd {pasta}')
-time.sleep(0.5)
-py.press('enter')
-time.sleep(0.5)
-py.write('git add *')
-time.sleep(0.5)
-py.press('enter')
-time.sleep(1)
-py.write(f'git commit -m {time.strftime(f""" "{obs} (%d/%m/%Y %H:%M:%S)" """, time.localtime())}')
-time.sleep(0.5)
-py.press('enter')
-time.sleep(5)
-py.write('git push')
-time.sleep(0.5)
-py.press('enter')
-time.sleep(6)
-if nav == 'opera' or 'Opera' or 'opera gx' or 'Opera gx' or 'Opera Gx' or \
-            'Opera GX' or 'Operagx' or 'OperaGx' or 'OperaGX':
-    py.write(f'start opera https://github.com/')
-elif nav == 'google' or 'chrome' or 'google chrome' or 'Google' or 'Chrome' \
-            or 'Google Chrome':
-    py.write(f'start chrome https://github.com/')
-time.sleep(0.5)
-py.press('enter')
-time.sleep(10)
-if pasta == 'prog-301':
-    for a in range(a):
-        py.press('tab')
-elif pasta == 'aulas-prog':
-    for aa in range(aa):
-        py.press('tab')
-time.sleep(0.5)
-py.press('enter')
+        py.hotkey('win', 'x')
+        time.sleep(1)
+        for a in range(a):
+            py.press('down')
+        time.sleep(0.5)
+        py.press('enter')
+        time.sleep(2)
+        py.write(f'cd {rep}')
+        time.sleep(1)
+        py.press('enter')
+        py.write(f'git add {arq}')
+        time.sleep(1)
+        py.press('enter')
+        time.sleep(1)
+        py.write(f'git commit -m {time.strftime(f""" "{msg} (%d/%m/%Y %H:%M:%S)" """, time.localtime())}')
+        time.sleep(1)
+        py.press('enter')
+        time.sleep(3)
+        py.write('git push')
+        time.sleep(1)
+        py.press('enter')
+        time.sleep(5)
+        py.write(f'start {nav} https://github.com/')
+        time.sleep(1)
+        py.press('enter')
+
+
+    def pull(self):
+
+        rep = input('\nDigite o nome do repositório que deseja acessar: ')
+        a = 9
+        print('')
+
+        py.hotkey('win', 'x')
+        time.sleep(1)
+        for a in range(a):
+            py.press('down')
+        time.sleep(0.5)
+        py.press('enter')
+        time.sleep(2)
+        py.write(f'cd {rep}')
+        time.sleep(1)
+        py.press('enter')
+        time.sleep(1)
+        py.write('git pull')
+        time.sleep(1)
+        py.press('enter')
+        time.sleep(3)
+        py.hotkey('alt', 'tab')
+
+    
+    def exibir_menu(self):
+
+        print('--------- MENU ---------')
+        print('|                      |')
+        print('|       1 - Push       |')
+        print('|       2 - Pull       |')
+        print('|       0 - Sair       |')
+        print('|                      |')
+        print('------------------------')
+
+
+    def menu(self):
+
+        while True:
+            self.exibir_menu()
+            try:
+                n = int(input('O que deseja fazer: '))
+                if n == 1:
+                    self.push()
+                elif n == 2:
+                    self.pull()
+                elif n == 0:
+                    print('Saindo...')
+                    sair = True
+                    break
+                else:
+                    print('Insira uma opção válida')
+            except(ValueError):
+                print("Insira uma opção válida!")
+
+
+if __name__ == "__main__":
+    app = Aplicativo()
+    app.menu()
